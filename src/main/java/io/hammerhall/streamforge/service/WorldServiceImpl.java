@@ -4,8 +4,8 @@ import io.hammerhall.streamforge.domain.world.City;
 import io.hammerhall.streamforge.domain.world.Country;
 import io.hammerhall.streamforge.domain.world.CountryLanguage;
 import io.hammerhall.streamforge.repository.WorldRepository;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -23,16 +23,16 @@ public class WorldServiceImpl implements WorldService {
 
     @Override
     public Collection<Country> findAllCountries() {
-        return new ArrayList<>(countries.values());
+        return Collections.unmodifiableCollection(countries.values());
     }
 
     @Override
     public Collection<City> findAllCities() {
-        return new ArrayList<>(cities.values());
+        return Collections.unmodifiableCollection(cities.values());
     }
 
     @Override
     public Collection<CountryLanguage> findAllLanguages() {
-        return new ArrayList<>(languages);
+        return Collections.unmodifiableCollection(languages);
     }
 }

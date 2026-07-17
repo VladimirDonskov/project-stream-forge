@@ -24,31 +24,31 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Collection<Movie> findAllMovies() {
-        return movies.values();
+        return Collections.unmodifiableCollection(movies.values());
     }
 
     @Override
     public Collection<Genre> findAllGenres() {
-        return genres.values();
+        return Collections.unmodifiableCollection(genres.values());
     }
 
     @Override
     public Collection<Director> findAllDirectors() {
-        return directors.values();
+        return Collections.unmodifiableCollection(directors.values());
     }
 
     @Override
     public Collection<Actor> findAllActors() {
-        return actors.values();
+        return Collections.unmodifiableCollection(actors.values());
     }
 
     @Override
     public Collection<Role> findAllRoles() {
-        return new ArrayList<>(roles);
+        return Collections.unmodifiableCollection(roles);
     }
 
     @Override
     public Collection<DirectorGenre> findAllDirectorGenres() {
-        return new ArrayList<>(directorGenres);
+        return Collections.unmodifiableCollection(directorGenres);
     }
 }
