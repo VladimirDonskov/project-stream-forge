@@ -26,7 +26,7 @@ public class MovCode0001 extends Base {
      * @return список названий всех фильмов
      */
     public List<String> task(@NonNull Collection<Movie> movies) {
-        throw new UnsupportedOperationException("Реализуйте метод");
+        return movies.stream().map(movie -> movie.getTitle()).toList();
     }
 
     @Test

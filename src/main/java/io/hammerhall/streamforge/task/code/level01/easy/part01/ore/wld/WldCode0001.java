@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class WldCode0001 extends Base {
 
     /**
-     * Задание: Получить список стран с населением более 50 миллионов человек.
+//     * Задание: Получить список стран с населением более 50 миллионов человек.
      * <p>
      * Описание: необходимо отфильтровать страны, оставив только те,
      * численность населения которых строго больше 50 000 000. Порядок результата
@@ -26,7 +26,7 @@ public class WldCode0001 extends Base {
      * @return список стран с населением > 50 000 000
      */
     public List<Country> task(@NonNull Collection<Country> countries) {
-        throw new UnsupportedOperationException("Реализуйте метод");
+        return countries.stream().filter(country -> country.getPopulation() > 50_000_000).toList();
     }
 
     @Test
