@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# ============================================================
+#  Hammerhall CLI — обёртка-загрузчик.
+#
+#  В репозитории лежит только этот скрипт. Сам клиент (cli.jar)
+#  скачивается при первом запуске в .hammerhall/ — папку, которая
+#  в .gitignore.
+#
+#  Почему не коммитить jar: бинарник остаётся в истории git НАВСЕГДА,
+#  и каждая новая версия добавляет мегабайты. Через год клонирование
+#  кузницы качало бы десяток мёртвых версий клиента.
+# ============================================================
+set -euo pipefail
+
+VERSION="0.1.0"
+REPO="hammerhall/hammerhall-cli"
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DIR="$ROOT/.hammerhall"
+JAR="$DIR/cli-$VERSION.jar"
+
+if ! command -v java > /dev/null 2>&1; then
+    echo "Нужна Java. Она же нужна, чтобы решать задачи — поставьте JDK 25." >&2
+    exit 1
+fi
+
+if [[ ! -f "$JAR" ]]; then
+    echo "Загружаю клиент $VERSION…" >&2
+    mkdir -p "$DIR"
+    URL="https://github.com/$REPO/releases/download/v$VERSION/cli-$VERSION.jar"
+
+    # Во временный файл, потом переименование: оборвётся связь на середине —
+    # останется мусор с временным именем, а не битый jar под правильным.
+    # Иначе следующий запуск решил бы, что клиент уже скачан.
+    TMP="$JAR.part"
+    if command -v curl > /dev/null 2>&1; then
+        curl -fsSL -o "$TMP" "$URL"
+    elif command -v wget > /dev/null 2>&1; then
+        wget -q -O "$TMP" "$URL"
+    else
+        echo "Нужен curl или wget." >&2
+        exit 1
+    fi
+    mv "$TMP" "$JAR"
+fi
+
+exec java -jar "$JAR" "$@"
