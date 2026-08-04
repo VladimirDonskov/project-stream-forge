@@ -26,8 +26,9 @@ public class MovCode0002 extends Base {
      * @param targetYear граничный год; учитываются фильмы строго новее него
      * @return список фильмов, вышедших после указанного года
      */
+
     public List<Movie> task(@NonNull Collection<Movie> movies, int targetYear) {
-        throw new UnsupportedOperationException("Реализуйте метод");
+        return movies.stream().filter(movie -> movie.getYear() > targetYear).toList();
     }
 
     @Test

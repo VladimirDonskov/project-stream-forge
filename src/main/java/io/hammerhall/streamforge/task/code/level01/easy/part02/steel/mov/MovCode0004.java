@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.hammerhall.streamforge.domain.movie.Movie;
 import io.hammerhall.streamforge.task.Base;
+
+import java.time.Year;
 import java.util.Collection;
 import java.util.List;
 import lombok.NonNull;
@@ -25,7 +27,7 @@ public class MovCode0004 extends Base {
      * @return количество фильмов, вышедших в невисокосные годы
      */
     public long task(@NonNull Collection<Movie> movies) {
-        throw new UnsupportedOperationException("Реализуйте метод");
+        return movies.stream().filter(movie -> !Year.isLeap(movie.getYear())).count();
     }
 
     @Test
