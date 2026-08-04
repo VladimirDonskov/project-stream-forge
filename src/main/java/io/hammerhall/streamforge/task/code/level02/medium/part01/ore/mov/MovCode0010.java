@@ -28,7 +28,7 @@ public class MovCode0010 extends Base {
      * @return список названий фильмов в порядке убывания года выхода
      */
     public List<String> task(@NonNull Collection<Movie> movies) {
-        throw new UnsupportedOperationException("Реализуйте метод");
+        return movies.stream().sorted((o1, o2) -> o2.getYear() - o1.getYear()).map(movie -> movie.getTitle()).toList();
     }
 
     @Test
